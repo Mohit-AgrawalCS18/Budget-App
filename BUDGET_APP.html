@@ -1,0 +1,111 @@
+<!--BUDGET APP-->
+<!doctype html>
+<html ng-app="myapp">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+        <link rel="stylesheet" href="css/BUDGET_APP.css">
+        <title>Budget App</title>
+    </head>
+    <body ng-controller="controller"ng-init="Budget.Bill=0">
+        <div class="container budget-container">
+            <header class="main-header"><h3>BUDGET APP</h3></header>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 container-1">
+                    <div class="card budget-Card">
+                        <div class="card-body">
+                            <h5>Please Enter Your Budget</h5>
+                            <form name="myform" novalidate>
+                                <div class="alert alert-danger alert-dismissible fade show"ng-show="myform.number.$touched&&myform.number.$error.required">
+                                    <div class="close"data-dismiss="alert">&times;</div>
+                                    <strong>Required!</strong><span>  Fill out of this filled</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number"name="number"class="form-control form-control-Budget"ng-model="data.Bill"autocomplete="off" required>                                        
+                                    <span style="color: red;">{{messageerror}}</span>
+                                </div>
+                                <input type="button"class="btn btn-success budget-calculate-button"ng-click="Add()"value="Calculate">
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div><br>
+        
+                <div class="col-sm-6 col-md-6 container-2">
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="d-flex flex-column">
+                            <h4>BUDGET</h4><br>
+                            <h1 class="mx-auto Budget-Money-bill" style="font-size:50px;"><i class="fas fa-money-bill-alt"></i></h1>
+                            <span class="mx-auto"style="font-size:45px;color:green;"><div style="font-weight:500;">$<span>{{Budget.Bill}}</span></div></span>
+                        </div>
+                        <div class="d-flex flex-column"ng-init="total=0">
+                            <span ng-init="$parent.total=$parent.total+Expensention"ng-repeat="Expensention in VALUE"></span>
+                            <h4>EXPENSES</h4><br>
+                            <h4 class="mx-auto Expense-credit-card"style="font-size:50px;"><i class="fas fa-credit-card"></i></h4>
+                            <span class="mx-auto"style="font-size:45px;color: rgb(175, 29, 29);"><div style="font-weight:500;">$<span>{{total}}</span></div></span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <h4>BALANCE</h4><br>
+                            <h4 class="mx-auto Balance-dollar-sign"style="font-size:50px;"><i class="fas fa-dollar-sign"></i></h4>
+                            <span class="mx-auto"style="font-size:45px;"><div style="font-weight:500;">$<span>{{Budget.Bill-total}}</span></div></span>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class="col-sm-6 col-md-6 container-3">
+                    <div class="card Expense-card">
+                        <div class="card-body">
+                            <h5>Please Enter Your Expense</h5>
+                            <form ng-submit="Addamount(Expenses)" novalidate>
+                                <div class="form-group">
+                                    <input type="text"ng-model="Expenses.ExpenseTitle"class="form-control Form-controll-text"auto-complete="off" required>
+                                    <div style="color:red;">{{message}}</div> 
+                                </div>
+                                <h5>Please Enter Expense Amount</h5>
+                                
+                                <div class="form-group">
+                                    <input type="number"class="form-control Form-Control-number"ng-model="Expenses.ExpenseValue"auto-complete="off" required>
+                                    <div style="color: red;">{{message}}</div>
+                                </div>
+                                <input type="submit"class="btn btn-danger budget-expense-button"value="Add Expense">
+                            </form>
+                        </div>
+        
+                    </div>
+                </div><br>
+                
+                <div class="col-sm-6 col-md-6 container-4">
+                    <div class="d-flex flex-row">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <th>Expense Title</th>
+                                <th>Expense Value</th>
+                                <th></th>
+                            </thead>
+                            <tr ng-repeat="todo in Expenses">
+                                <th style="color:rgb(204, 48, 48)">{{todo.ExpenseTitle}}</th>
+                                <th style="color: blue;">${{todo.ExpenseValue}}</th>
+                                <th>
+                                <a href=""style="color: red;" class="fas fa-trash"title="Delete"ng-click="remove($index)"></a>
+                                <a href=""style="color:green;" class="fas fa-edit"title="Edit"></a>
+                            </th>
+                            </tr>
+                        </table>
+                    </div>        
+                </div>
+            </div>
+                
+        </div>
+        <script src="app/App.js"></script>
+    </body>
+</html>
